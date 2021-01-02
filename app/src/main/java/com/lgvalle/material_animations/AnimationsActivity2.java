@@ -1,6 +1,5 @@
 package com.lgvalle.material_animations;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
 import android.transition.Scene;
@@ -9,6 +8,8 @@ import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.lgvalle.material_animations.databinding.ActivityAnimations2Binding;
 
@@ -70,8 +71,8 @@ public class AnimationsActivity2 extends BaseDetailActivity {
     }
 
     private void setupLayout() {
-        final ViewGroup activityRoot = (ViewGroup) findViewById(R.id.buttons_group);
-        ViewGroup sceneRoot = (ViewGroup) findViewById(R.id.scene_root);
+        final ViewGroup activityRoot = findViewById(R.id.buttons_group);
+        ViewGroup sceneRoot = findViewById(R.id.scene_root);
 
         scene0 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene0, this);
         scene0.setEnterAction(new Runnable() {

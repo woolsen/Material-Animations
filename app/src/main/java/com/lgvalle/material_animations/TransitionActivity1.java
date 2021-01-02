@@ -1,7 +1,7 @@
 package com.lgvalle.material_animations;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.Slide;

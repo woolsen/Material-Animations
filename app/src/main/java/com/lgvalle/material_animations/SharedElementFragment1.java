@@ -1,8 +1,8 @@
 package com.lgvalle.material_animations;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.Fragment;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.transition.ChangeBounds;
 import android.transition.Slide;
 import android.view.Gravity;
@@ -11,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-/**
- * Created by lgvalle on 05/09/15.
- */
 public class SharedElementFragment1 extends Fragment {
 
     private static final String EXTRA_SAMPLE = "sample";

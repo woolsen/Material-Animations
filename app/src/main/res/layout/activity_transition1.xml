@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/MaterialAnimations.TextAppearance.Title"
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_gravity="center_vertical|start"
                 android:text='@{transition1Sample.name}' />
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
             style="@style/MaterialAnimations.Text.Body"
