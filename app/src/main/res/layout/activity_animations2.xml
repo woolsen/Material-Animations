@@ -4,7 +4,7 @@
 
         <variable
             name="animationsSample"
-            type="com.lgvalle.material_animations.Sample" />
+            type="cn.woolsen.material.animations.Sample" />
     </data>
 
     <LinearLayout

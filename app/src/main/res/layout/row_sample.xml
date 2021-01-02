@@ -7,15 +7,15 @@
 
         <variable
             name="sample"
-            type="com.lgvalle.material_animations.Sample" />
+            type="cn.woolsen.material.animations.Sample" />
     </data>
 
     <LinearLayout
         android:id="@+id/sample_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:clipToPadding="false"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/spacing_double">
 

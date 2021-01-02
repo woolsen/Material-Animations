@@ -5,7 +5,7 @@
 
         <variable
             name="transition3Sample"
-            type="com.lgvalle.material_animations.Sample" />
+            type="cn.woolsen.material.animations.Sample" />
     </data>
 
     <LinearLayout
