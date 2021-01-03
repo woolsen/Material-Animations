@@ -25,15 +25,15 @@ class SharedElementActivity : BaseDetailActivity() {
     }
 
     private fun setupWindowAnimations() {
-        // We are not interested in defining a new Enter Transition. Instead we change default transition duration
-        window.enterTransition.duration = resources.getInteger(R.integer.anim_duration_long).toLong()
+        // 无需再定义一个新的enterTransition. 直接修改默认的enterTransition持续时间
+        window.enterTransition?.duration = resources.getInteger(R.integer.anim_duration_long).toLong()
     }
 
     private fun setupLayout(sample: Sample) {
-        // Transition for fragment1
+        // fragment1 的 Transition
         val slideTransition = Slide(Gravity.START)
         slideTransition.duration = resources.getInteger(R.integer.anim_duration_long).toLong()
-        // Create fragment and define some of it transitions
+        // 创建一个 Fragment, 并定义一些 transition
         val sharedElementFragment1 = SharedElementFragment1.newInstance(sample)
         sharedElementFragment1.reenterTransition = slideTransition
         sharedElementFragment1.exitTransition = slideTransition

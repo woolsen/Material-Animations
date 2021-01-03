@@ -55,7 +55,9 @@ internal object TransitionHelper {
         addNonNullViewToTransitionParticipants(navBar, participants)
 
         // only add transition participants if there's at least one none-null element
-        participants.addAll(listOf(*otherParticipants))
+        if (otherParticipants.isNotEmpty()) {
+            participants.addAll(listOf(*otherParticipants))
+        }
         return participants.toTypedArray()
     }
 

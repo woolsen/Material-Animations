@@ -1,34 +1,45 @@
-# UNMAINTAINED
-No maintainance is intended. 
-The content is still valid as a reference but it won't contain the latest new stuff
+> 此仓库为中文翻译仓库，并加入了一些自己的理解。
+> 原作者：Luis G. Valle
+> 原Git仓库地址：https://github.com/lgvalle/Material-Animations
+> 翻译作者：Woolsen
+> 中文翻译Git仓库地址：https://github.com/woolsen/Material-Animations
+
+
+> No maintainance is intended. 
+> The content is still valid as a reference but it won't contain the latest new stuff
+>
+> ​				       ---- Luis G. Valle
+>
+> 无需维护。
+> 该内容作为引用仍然有效，但不会包含最新的内容
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material--Animations-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/1880)
 
-[Android Transition Framework][transition-framework] can be used for **three** main things:
+[Android Transition Framework][transition-framework] 主要可用于**三个**方面:
 
-1. Animate activity layout content when transitioning from one activity to another.
-2. Animate shared elements (Hero views) in transitions between activities.
-3. Animate view changes within same activity.
+1. 从一个Activity跳转到另一个Acitivity时设置Acitivity布局内容的动画.
+2. 当Activity跳转时，为Activity之间的共享元素设置动画.
+3. 设置同一Activity中View改变的动画.
 
 
-## 1. Transitions between Activities
+## 1. Activity之间的过渡动画（Transition）
 
-Animate existing activity layout **content**
+为已存在的布局**内容**设置动画
 
 ![A Start B][transition_a_to_b]
 
-When transitioning from `Activity A` to `Activity B` content layout is animated according to defined transition. There are three predefined transitions available on `android.transition.Transition` you can use: **Explode**, **Slide** and **Fade**. 
-All these transitions track changes to the visibility of target views in activity layout and animate those views to follow transition rules.
+当从`Activity A`跳转到`Activity B`时，内容布局将根据定义的变换(Transition)设置过渡动画。在`android.transition.Transition`中，有三个预设的过渡动画可以使用：**Explode**, **Slide** 和 **Fade**. 
+
+所有这些过渡动画都跟踪活动布局中目标视图的可见性更改，并为这些视图设置动画以遵循过渡规则。
 
 [Explode][explode_link] | [Slide][slide_link] | [Fade][fade_link]
 --- | --- | ---
 ![transition_explode] | ![transition_slide] | ![transition_fade]
 
+可以使用**XML声明**或者通过**代码编写**。比如Fade过渡动画，可以通过以下方式声明：
 
-You can define these transitions **declarative** using XML or **programmatically**. For the Fade Transition sample, it would look like this:
-
-### Declarative
-Transitions are defined on XML files in `res/transition`
+### XML
+过渡动画的XML文件放在 `res/transition`
 
 > res/transition/activity_fade.xml
 
@@ -48,12 +59,12 @@ Transitions are defined on XML files in `res/transition`
 
 ```
 
-To use these transitions you need to inflate them using `TransitionInflater`
+然后使用 `TransitionInflater` 来加载这些Transition
 
 > MainActivity.java
- 
+
 ```java
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
@@ -68,9 +79,9 @@ To use these transitions you need to inflate them using `TransitionInflater`
 ```
 
 > TransitionActivity.java
- 
+
 ```java
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
@@ -84,12 +95,12 @@ To use these transitions you need to inflate them using `TransitionInflater`
 
 ```
 
-### Programmatically 
+### 通过代码编写 
 
 > MainActivity.java
- 
+
 ```java
-	@Override
+	  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
@@ -105,9 +116,9 @@ To use these transitions you need to inflate them using `TransitionInflater`
 ```
 
 > TransitionActivity.java
- 
+
 ```java
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
@@ -122,34 +133,34 @@ To use these transitions you need to inflate them using `TransitionInflater`
 
 ```
 
-#### Any of those produce this result:
+#### 效果:
 
 ![transition_fade]
 
 
-### What is happening step by step:
+### 一步一步发生了什么:
 
-1. Activity A starts Activity B
+1. Activity A 启动 Activity B
 
-2. Transition Framework finds A Exit Transition (slide) and apply it to all visible views.
-3. Transition Framework finds B Enter Transition (fade) and apply it to all visible views.
-4. **On Back Pressed** Transition Framework executes Enter and Exit reverse animations respectively (If we had defined output `returnTransition` and `reenterTransition`, these have been executed instead) 
+2. Transition Framework 找到 A Exit Transition (slide) 并将其应用于所有可见的View。
+3. Transition Framework 找到 B Enter Transition (fade) 并将其应用于所有可见的View。
+4. 按下返回时，Transition Framework 分别执行 Enter 和 Exit 的反向动画 (如果我们已经定义了`returnTransition` 和 `reenterTransition`, 那么它们将被执行) 
 
-### ReturnTransition & ReenterTransition
+### ReturnTransition 和 ReenterTransition
 
-Return and Reenter Transitions are the reverse animations for Enter and Exit respectively.
+Return Transitions 和 Reenter Transitions 分别是Enter和Exit的反向动画.
 
   * EnterTransition <--> ReturnTransition
   * ExitTransition <--> ReenterTransition
 
-If Return or Reenter are not defined, Android will execute a reversed version of Enter and Exit Transitions. But if you do define them, you can have different transitions for entering and exiting an activity.
+如果没有定义Return或Reenter，系统将执行反向的 Enter Transition 和 Exit Transition 。但如果定义了它们，则可以使用不同的转换来进入和退出Acitivity。
 
 ![b back a][transition_b_to_a]
 
-We can modify previous Fade sample and define a `ReturnTransition` for `TransitionActivity`, in this case, a **Slide** transition. This way, when returning from B to A, instead of seeing a Fade out (reversed Enter Transition) we will see a **Slide out** transition
- 
+我们可以修改之前的 Fade 样例，为`TransitionActivity`定义一个`ReturnTransition`。在当前样例中，定义了一个 滑出（**Slide**） 过渡动画。此时，当我们从B返回A，原本是一个淡出（Fade）的过渡动画（反向的Enter Transition），现在变成了滑出（**Slide**）的过渡动画
+
 > TransitionActivity.java
- 
+
 ```java
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,32 +181,31 @@ We can modify previous Fade sample and define a `ReturnTransition` for `Transiti
 
 ```
 
+注意，如果没有定义Return Transition，则执行反向的Enter Transition。
+如果定义了Return Transition，则执行定义的Return Transition。
 
-Observe that if no Return Transition is defined then a reversed Enter Transition is executed.
-If a Return Transition is defined that one is executed instead. 
-
-Without Return Transition | With Return Transition 
+没有 Return Transition | 有 Return Transition 
 --- | --- 
 Enter: `Fade In` | Enter: `Fade In`
 Exit: `Fade Out` | Exit: `Slide out`
 ![transition_fade] | ![transition_fade2] 
 
 
-## 2. Shared elements between Activities
+## 2. Activity之间的共享元素
 
-The idea behind this is having two different views in two different layouts and link them somehow with an animation.
+这主要用在两个不同布局中有两个不同的试图，并以某种方式用动画将他们链接起来。
 
-Transition framework will then do _whatever animations it consider necessary_ to show the user a transition from one view to another.
+Transition framework 会自动为场景切换添加动画效果，向用户显示从一个视图到另一个视图的过渡。
 
-Keep this always in mind: the view **is not really moving** from one layout to another. They are two independent views.
+记住：视图**并不是**真正从一个布局移动到另一个布局。它们是两种独立的View，通过属性设置，为另一个布局的View构造一个与原布局的View相同的效果，然后对他执行过渡动画。
 
 
 ![A Start B with shared][shared_element]
 
 
-### a) Enable Window Content Transition
+### a) 开启 Window Content Transition
 
-This is something you need to set up once on your app `styles.xml`.
+需要在 `styles.xml` 中设置.
 
 > values/styles.xml
 
@@ -207,16 +217,16 @@ This is something you need to set up once on your app `styles.xml`.
 </style>
 ```
 
-Here you can also specify default enter, exit and shared element transitions for the whole app if you want
+你也可以为APP指定默认的enter、exit和共享元素的过渡动画。
 
 ```xml
 <style name="MaterialAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
     ...
-    <!-- specify enter and exit transitions -->
+    <!-- 指定 enter过渡 和 exit过渡 -->
     <item name="android:windowEnterTransition">@transition/explode</item>
     <item name="android:windowExitTransition">@transition/explode</item>
 
-    <!-- specify shared element transitions -->
+    <!-- 指定共享元素过渡 -->
     <item name="android:windowSharedElementEnterTransition">@transition/changebounds</item>
     <item name="android:windowSharedElementExitTransition">@transition/changebounds</item>
     ...
@@ -225,9 +235,9 @@ Here you can also specify default enter, exit and shared element transitions for
 
 
 
-### b) Define a common transition name
+### b) 定义一个transition name
 
-To make the trick you need to give both, origin and target views, the same **`android:transitionName`**. They may have different ids or properties, but `android:transitionName` must be the same.
+要实现过渡，你需要为原View和目标View设置相同的 **`android:transitionName`** 。它们可以有不同的ID和属性，但`android:transitionName`必须相同。
 
 > layout/activity_a.xml
 
@@ -249,9 +259,9 @@ To make the trick you need to give both, origin and target views, the same **`an
         android:transitionName="@string/blue_name" />
 ```
 
-### c) Start an activity with a shared element 
+### c) 启动带有共享元素的Activity 
 
-Use the `ActivityOptions.makeSceneTransitionAnimation()` method to define shared element origin view and transition name.
+使用 `ActivityOptions.makeSceneTransitionAnimation()` 方法定义共享元素和transition name。
 
 > MainActivity.java
 
@@ -273,19 +283,19 @@ blueIconImageView.setOnClickListener(new View.OnClickListener() {
 ```
 
 
-Just that code will produce this beautiful transition animation:
+这段代码将产生优美的过渡动画：
 
 ![a to b with shared element][shared_element_anim]
 
-As you can see, Transition framework is creating and executing an animation to create the illusion that views are moving and changing shape from one activity to the other
+如图，过渡框架正在创建和执行一个动画，让人产生视图从一个Activity移动到另一个Activity并改变形状的假象。
 
-## Shared elements between fragments
+## fragment之间的共享元素
 
-Shared element transition works with Fragments in a very similar way as it does with activities. 
+共享元素过渡动画在framgnet中的的方式与Activity的方式非常相似。
 
-Steps **a)** and **b)** are exactly the **same**. Only **c)** changes			
+**a)** 和 **b)** 都**完全**相同. 只有 **c)** 需要修改			
 
-### a) Enable Window Content Transition
+### a) 开启Window Content Transition
 
 > values/styles.xml
 
@@ -297,7 +307,7 @@ Steps **a)** and **b)** are exactly the **same**. Only **c)** changes
 </style>
 ```
 
-### b) Define a common transition name
+### b) 定义一个统一的transition name
 
 > layout/fragment_a.xml
 
@@ -319,19 +329,19 @@ Steps **a)** and **b)** are exactly the **same**. Only **c)** changes
         android:transitionName="@string/blue_name" />
 ```
 
-###  c) Start a fragment with a shared element
+###  c) 开启一个带有共享元素的fragment
 
-To do this you need to include shared element transition information as part of the **`FragmentTransaction`** process.
+为此，您需要将共享元素转换信息作为FragmentTransaction过程的一部分设置进来。
 
 ```java
 FragmentB fragmentB = FragmentB.newInstance(sample);
 
-// Defines enter transition for all fragment views
+// 为fragment的所有View定义enter transition
 Slide slideTransition = new Slide(Gravity.RIGHT);
 slideTransition.setDuration(1000);
 sharedElementFragment2.setEnterTransition(slideTransition);
 
-// Defines enter transition only for shared element
+// 仅为共享元素定义enter transition
 ChangeBounds changeBoundsTransition = TransitionInflater.from(this).inflateTransition(R.transition.change_bounds);
 fragmentB.setSharedElementEnterTransition(changeBoundsTransition);
 
@@ -341,34 +351,34 @@ getFragmentManager().beginTransaction()
         .commit();
 ```
 
-And this is the final result:
+这是最后的结果:
 
 ![shared_element_no_overlap]
 
-## Allow Transition Overlap
+## 允许过渡重叠
 
-You can define if enter and exit transitions can overlap each other. 
+您可以定义进入和退出过渡动画是否可以相互重叠. 
 
-From [Android documentation](http://developer.android.com/intl/ko/reference/android/app/Fragment.html#getAllowEnterTransitionOverlap()):
-> When **true**, the enter transition will start as soon as possible. 
+来自 [Android documentation](http://developer.android.com/intl/ko/reference/android/app/Fragment.html#getAllowEnterTransitionOverlap()):
+> 当为 **true** 时, enter transition 立马开始. 
 > 
-> When **false**, the enter transition will wait until the exit transition completes before starting.
+> 当为 **false** 时, enter transition 会等待 exit transition 结束再开始.
 
-This works for both Fragments and Activities shared element transitions.
+这个设置对Fragment和Activitiy的共享元素过渡动画都有效.
 
 ```java
 FragmentB fragmentB = FragmentB.newInstance(sample);
 
-// Defines enter transition for all fragment views
+// 为fragment的所有View定义enter transition
 Slide slideTransition = new Slide(Gravity.RIGHT);
 slideTransition.setDuration(1000);
 sharedElementFragment2.setEnterTransition(slideTransition);
 
-// Defines enter transition only for shared element
+// 仅为共享元素定义enter transition
 ChangeBounds changeBoundsTransition = TransitionInflater.from(this).inflateTransition(R.transition.change_bounds);
 fragmentB.setSharedElementEnterTransition(changeBoundsTransition);
 
-// Prevent transitions for overlapping
+// 防止重叠过渡
 fragmentB.setAllowEnterTransitionOverlap(overlap);
 fragmentB.setAllowReturnTransitionOverlap(overlap);
 
@@ -378,21 +388,21 @@ getFragmentManager().beginTransaction()
         .commit();
 ```
 
-It is very easy to spot the difference in this example:
+可以很容易地在下面例子中看出区别：
 
 Overlap True | Overlap False
 --- | --- 
-Fragment_2 appears on top of Fragment_1 | Fragment_2 waits until Fragment_1 is gone
+Fragment_2 出现在 Fragment_1的顶部 | Fragment_2 等待 Fragment_1 消失 
 ![shared_element_overlap] | ![shared_element_no_overlap]
- 
 
 
-## 3. Animate view layout elements
 
-### Scenes
-Transition Framework can also be used to animate element changes within current activity layout. 
+## 3. 设置视图布局元素的动画
 
-Transitions happen between scenes. A scene is just a regular layout which **defines a static state of our UI**. You can transition from one scene to another and Transition Framework will animate views in between.
+### 场景（Scenes）
+Transition Framework 也可以用于当前Activity布局中的元素变化的动画
+
+场景之间会发生过渡动画。一个场景（Scene）只是**定义了UI的静态状态**的一个规则的布局。你可以从一个场景过渡到另一个场景,Transition Framework会为两个场景之间设置动画。
 
 ```java
 scene1 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene1, this);
@@ -421,57 +431,55 @@ public void onClick(View v) {
 }
 ```
 
-That code would produce transition between four scenes in the same activity. Each transition has a different animation defined. 
+该代码将在同一Activity中的四个场景之间使用过渡动画。每个过渡都定义了不同的动画。
 
-Transition Framework will take all visible views in current scene and calculate whatever necessary animations are needed to arrange those views according to next scene.
+过渡框架将获取当前场景中的所有可见视图，并根据下一个场景计算所需的动画来排列这些视图。
 
 ![scenes_anim]
 
 
-### Layout changes
+### 布局更改
 
-Transition Framework can also be used to animate layout property changes in a view. You just need to make whatever changes you want and it will perform necessary animations for you
+Transition Framework 还可以用于设置视图中布局属性更改的动画。你只需要做任何你想要的改变，它会为你执行必要的动画。
 
-#### a) Begin Delayed Transition
+#### a) 开始延迟过渡
 
-With just this line of code we are telling the framework we are going to perform some UI changes that it will need to animate.
+通过这行代码，我们告诉框架我们将执行一些UI更改，这些更改将需要动画化。
 
 ```java
 TransitionManager.beginDelayedTransition(sceneRoot);
 ```
-#### b) Change view layout properties
+#### b) 更改视图布局属性
 
 
 ```java
 ViewGroup.LayoutParams params = greenIconView.getLayoutParams();
 params.width = 200;
 greenIconView.setLayoutParams(params);
-
 ```
 
 Changing view width attribute to make it smaller will trigger a `layoutMeasure`. At that point the Transition framework will record start and ending values and will create an animation to transition from one to another.
 
-    
+
 ![view layout animation][view_layout_anim]
 
 
-## 4. (Bonus) Shared elements + Circular Reveal
-Circular Reveal is just an animation to show or hide a group of UI elements. It is available since API 21 in `ViewAnimationUtils` class. 
+## 4. (额外) 共享元素 + Circular Reveal
 
+Circular Reveal是一种用来显示和隐藏一组UI元素的动画，视觉效果类似于涟漪。可以在API 21起的`ViewAnimationUtils`类中获取到。
 
-Circular Reveal animation can be used in combination of Shared Element Transition to create meaningful animations that smoothly teach the user what is happening in the app.
+Circular Reveal动画可以结合使用共享元素转换来创建有意义的动画，平滑地为用户展示正在发生的事情。
 
 ![reveal_shared_anim]
 
-What is happening in this example step by step is:
+在这个例子中逐步发生的是：
 
-* Orange circle is a shared element transitioning from `MainActivity` to `RevealActivity`.
-* On `RevealActivity` there is a listener to listen for shared element transition end. When that happens it does two things:
-  * Execute a Circular Reveal animation for the Toolbar
-  * Execute a scale up animation on `RevealActivity` views using plain old `ViewPropertyAnimator`
+* 橙色圆圈是一个共享元素，从`MainActivity`过渡到`RevealActivity`。
+* 在`RevealActivity`上，有一个侦听器侦听共享元素转换结束。当这种情况发生时，它会做两件事：
+  * 为Toolbar执行 Circular Reveal动画
+  * 使用普通的`ViewPropertyAnimator`在`RevealActivity`视图上执行放大动画
 
-
-> Listen to shared element enter transition end
+> 侦听共享元素enter过渡结束
 
 ```java
 Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.changebounds_with_arcmotion);
@@ -503,9 +511,9 @@ private void animateRevealShow(View viewRoot) {
     anim.setInterpolator(new AccelerateInterpolator());
     anim.start();
 }
-```  
+```
 
-> Scale up activity layout views
+> 放大activity布局中的view
 
 ```java
 private void animateButtonsIn() {
@@ -521,11 +529,11 @@ private void animateButtonsIn() {
 }
 ```
 
-### More circular reveal animations
+### 更多的circular reveal动画
 
-There are many different ways you can create a reveal animation. The important thing is to use the animation to help the user understand what is happening in the app.
+有许多不同的方法可以创建显示动画。重要的是使用动画来帮助用户理解应用程序中正在发生的事情。
 
-#### Circular Reveal from the middle of target view
+#### 从目标视图的中间显示Circular Reveal
 
 ![reveal_green]
 
@@ -537,9 +545,9 @@ int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
 Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
 viewRoot.setBackgroundColor(color);
 anim.start();
-```        
+```
 
-#### Circular Reveal from top of target view + animations
+#### 从目标视图的顶部显示Circular Reveal + 动画
 
 ![reveal_blue]
 
@@ -557,10 +565,10 @@ anim.addListener(new AnimatorListenerAdapter() {
     }
 });
 anim.start();
-``` 
+```
 
 
-#### Circular Reveal from touch point
+#### 从触摸点显示Circular Reveal
 
 ![reveal_yellow]
 
@@ -584,9 +592,9 @@ private Animator animateRevealColorFromCoordinates(int x, int y) {
     viewRoot.setBackgroundColor(color);
     anim.start();
 }
-```       
+```
 
-#### Animate and Reveal
+#### 动画和Reveal
 
 ![reveal_red]
 
@@ -604,15 +612,17 @@ TransitionManager.beginDelayedTransition(bgViewGroup, transition);
 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 btnRed.setLayoutParams(layoutParams);
-```         
-  
-
-# Sample source code
-
-**[https://github.com/lgvalle/Material-Animations](https://github.com/lgvalle/Material-Animations/)**
+```
 
 
-# More information
+# 样例代码
+
+原作者地址：**[https://github.com/lgvalle/Material-Animations](https://github.com/lgvalle/Material-Animations/)**
+
+中文翻译地址：**[https://github.com/woolsen/Material-Animations](https://github.com/woolsen/Material-Animations)**
+
+
+# 更多信息
 
   * Alex Lockwood posts about Transition Framework. A great in deep into this topic: [http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html](http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html)
   * Amazing repository with lot of Material Design samples by Saul Molinero: [https://github.com/saulmm/Android-Material-Examples](https://github.com/saulmm/Android-Material-Examples)

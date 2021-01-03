@@ -63,12 +63,8 @@ class TransitionActivity1 : BaseDetailActivity() {
         }
         findViewById<View>(R.id.sample1_button6).setOnClickListener {
             /**
-             * If no return transition is defined Android will use reversed enter transition
-             * In this case, return transition will be a reversed Slide (defined in buildEnterTransition)
-             */
-            /**
-             * If no return transition is defined Android will use reversed enter transition
-             * In this case, return transition will be a reversed Slide (defined in buildEnterTransition)
+             * 如果没有定义 returnTransition, 系统会使用反转的 enterTransition
+             * 在这个例子下, returnTransition 是一个反向的 Slide (定义在 buildEnterTransition)
              */
             finishAfterTransition()
         }
@@ -77,7 +73,7 @@ class TransitionActivity1 : BaseDetailActivity() {
     private fun buildEnterTransition(): Visibility {
         val enterTransition = Fade()
         enterTransition.duration = resources.getInteger(R.integer.anim_duration_long).toLong()
-        // This view will not be affected by enter transition animation
+        // 这个 view 不受 enterTransition 的影响
         enterTransition.excludeTarget(R.id.square_red, true)
         return enterTransition
     }

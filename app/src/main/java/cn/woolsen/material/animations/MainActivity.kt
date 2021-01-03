@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupWindowAnimations() {
-        // Re-enter transition is executed when returning to this activity
+        // 回到当前 Activity 时，执行 Re-enterTransition
         val slideTransition = Slide()
         slideTransition.slideEdge = Gravity.START
         slideTransition.duration = resources.getInteger(R.integer.anim_duration_long).toLong()
