@@ -1,7 +1,11 @@
-> 此仓库为中文翻译仓库，并加入了一些自己的理解。
+> 此仓库为中文翻译仓库。
+> 
 > 原作者：Luis G. Valle
+> 
 > 原Git仓库地址：https://github.com/lgvalle/Material-Animations
+> 
 > 翻译作者：Woolsen
+> 
 > 中文翻译Git仓库地址：https://github.com/woolsen/Material-Animations
 
 
